@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_vehicle_log_contract_view_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.contract.form.multi.responsible</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="additional_responsible_ids"
+                       widget="many2many_avatar_user"
+                       options="{'no_create': True}"/>
+                <field name="expiry_notice_sent_on" invisible="not expiry_notice_sent_on"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_log_contract_view_tree" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.contract.list.multi.responsible</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='purchaser_id']" position="after">
+                <field name="additional_responsible_ids"
+                       widget="many2many_avatar_user"
+                       optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_log_contract_view_search" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.contract.search.multi.responsible</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='insurer_id']" position="after">
+                <field name="additional_responsible_ids"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

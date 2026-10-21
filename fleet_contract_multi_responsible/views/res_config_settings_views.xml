@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.fleet.contract.multi.responsible</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="fleet.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='end_contract_setting']" position="inside">
+                <setting id="fleet_contract_expiry_notice_setting"
+                         string="Contract expiry notice (days before)"
+                         help="Email every responsible of a running contract before it expires (sent once per expiration date).">
+                    <div class="text-muted content-group mt16">
+                        <span>Send the email </span>
+                        <field name="fleet_contract_expiry_notice_days" class="text-center" style="width: 10%; min-width: 4rem;"/>
+                        <span> days before the end date</span>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

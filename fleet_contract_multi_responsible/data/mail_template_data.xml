@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_contract_expiry_notice" model="mail.template">
+            <field name="name">Fleet: contract expiry notice</field>
+            <field name="description">Sent to every responsible of a running vehicle contract before it expires</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle_log_contract"/>
+            <field name="subject">[Fleet] Contract {{ object.expiry_notice_contract_label }} for {{ object.expiry_notice_vehicle_label }} expires {{ object.expiry_notice_when }}</field>
+            <field name="email_from">{{ (object.company_id or object.env.company).email_formatted or user.email_formatted }}</field>
+            <field name="lang">{{ ctx.get('expiry_notice_lang') or '' }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F3F4F6" style="width: 100%; background-color: #F3F4F6; border-collapse: collapse;">
+<tr><td align="center" style="padding: 24px 12px;">
+<t t-set="company" t-value="object.company_id or object.env.company"/>
+<t t-set="contract_url" t-value="'/mail/view?model=fleet.vehicle.log.contract&amp;res_id=%s' % object.id"/>
+<table role="presentation" width="600" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" style="width: 100%; max-width: 600px; background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; border-collapse: separate; font-family: Arial, Helvetica, sans-serif; color: #1F2937;">
+    <tr>
+        <td style="padding: 20px 28px; border-bottom: 3px solid #0B5CAD;">
+            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                <tr>
+                    <td valign="middle" style="font-size: 16px; font-weight: bold; color: #1F2937;" t-out="company.name"/>
+                    <td valign="middle" align="right" t-if="not company.uses_default_logo">
+                        <img t-att-src="'/logo.png?company=%s' % company.id" t-att-alt="company.name" height="40" style="height: 40px; max-width: 180px; border: 0; display: block;"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 28px 28px 8px 28px;">
+            <span style="display: inline-block; padding: 4px 10px; background-color: #FFF4E5; border: 1px solid #F5C27A; border-radius: 12px; color: #8A4B00; font-size: 13px; font-weight: bold;">Expires <t t-out="object.expiry_notice_when"/></span>
+            <p style="margin: 20px 0 12px 0; font-size: 18px; font-weight: bold; color: #1F2937;">
+                <t t-if="ctx.get('expiry_notice_first_name')">Hello <t t-out="ctx.get('expiry_notice_first_name')"/>,</t>
+                <t t-else="">Hello,</t>
+            </p>
+            <p style="margin: 0 0 20px 0; font-size: 15px; line-height: 22px; color: #1F2937;">
+                This is a reminder that contract <strong t-out="object.expiry_notice_contract_label"/> for vehicle <strong t-out="object.expiry_notice_vehicle_label"/><t t-if="object.vehicle_id.license_plate"> (<t t-out="object.vehicle_id.license_plate"/>)</t> expires on <strong t-out="format_date(object.expiration_date)"/>, <t t-out="object.expiry_notice_when"/>.
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0 28px;">
+            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; font-size: 14px; line-height: 20px;">
+                <tr t-if="object.vehicle_id">
+                    <td width="38%" valign="top" style="padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;">Vehicle</td>
+                    <td valign="top" style="padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937; font-weight: bold;"><t t-out="object.expiry_notice_vehicle_label"/><t t-if="object.vehicle_id.license_plate"> (<t t-out="object.vehicle_id.license_plate"/>)</t></td>
+                </tr>
+                <tr t-if="object.cost_subtype_id">
+                    <td width="38%" valign="top" style="padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;">Contract type</td>
+                    <td valign="top" style="padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;" t-out="object.cost_subtype_id.name"/>
+                </tr>
+                <tr t-if="object.insurer_id">
+                    <td width="38%" valign="top" style="padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;">Vendor</td>
+                    <td valign="top" style="padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;" t-out="object.insurer_id.name"/>
+                </tr>
+                <tr t-if="object.ins_ref">
+                    <td width="38%" valign="top" style="padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;">Reference</td>
+                    <td valign="top" style="padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;" t-out="object.ins_ref"/>
+                </tr>
+                <tr t-if="object.expiration_date">
+                    <td width="38%" valign="top" style="padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;">Expiration date</td>
+                    <td valign="top" style="padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937; font-weight: bold;" t-out="format_date(object.expiration_date)"/>
+                </tr>
+                <tr t-if="object.expiry_notice_cost_label">
+                    <td width="38%" valign="top" style="padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;">Cost</td>
+                    <td valign="top" style="padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;" t-out="object.expiry_notice_cost_label"/>
+                </tr>
+                <tr t-if="object.expiry_notice_responsible_names">
+                    <td width="38%" valign="top" style="padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; color: #6B7280;">Responsibles</td>
+                    <td valign="top" style="padding: 9px 0; border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; color: #1F2937;" t-out="object.expiry_notice_responsible_names"/>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 24px 28px 0 28px;">
+            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#EEF4FB" style="background-color: #EEF4FB; border-left: 4px solid #0B5CAD; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 14px 16px; font-size: 14px; line-height: 21px; color: #1F2937;">
+                        <strong style="color: #0B3D73;">What to do</strong><br/>
+                        Check whether the contract should be renewed or closed before it expires, so the vehicle is not left without coverage or without the contracted service.
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding: 28px;">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate;">
+                <tr>
+                    <td align="center" bgcolor="#0B5CAD" style="background-color: #0B5CAD; border-radius: 6px;">
+                        <a t-att-href="contract_url" target="_blank" style="display: inline-block; padding: 12px 28px; font-size: 15px; font-weight: bold; color: #FFFFFF; text-decoration: none; border-radius: 6px;">View contract</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 16px 28px 24px 28px; border-top: 1px solid #E5E7EB; font-size: 12px; line-height: 18px; color: #6B7280;">
+            You are receiving this notice because you are listed as a responsible for this contract. It is sent only once. If you have already handled it, you can ignore it.
+            <br/><br/>
+            <strong t-out="company.name" style="color: #4B5563;"/>
+            <t t-if="company.email"> · <t t-out="company.email"/></t>
+            <t t-if="company.website"> · <t t-out="company.website"/></t>
+        </td>
+    </tr>
+</table>
+</td></tr>
+</table>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,283 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fleet_contract_multi_responsible
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-21 01:07+0000\n"
+"PO-Revision-Date: 2026-10-21 01:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fleet_contract_multi_responsible
+#. odoo-python
+#: code:addons/fleet_contract_multi_responsible/models/fleet_vehicle_log_contract.py:0
+msgid "%(amount)s (%(frequency)s)"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model_terms:ir.ui.view,arch_db:fleet_contract_multi_responsible.res_config_settings_view_form
+msgid "<span> days before the end date</span>"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model_terms:ir.ui.view,arch_db:fleet_contract_multi_responsible.res_config_settings_view_form
+msgid "<span>Send the email </span>"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:mail.template,body_html:fleet_contract_multi_responsible.mail_template_contract_expiry_notice
+msgid ""
+"<table role=\"presentation\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#F3F4F6\" style=\"width: 100%; background-color: #F3F4F6; border-collapse: collapse;\">\n"
+"<tr><td align=\"center\" style=\"padding: 24px 12px;\">\n"
+"<t t-set=\"company\" t-value=\"object.company_id or object.env.company\"/>\n"
+"<t t-set=\"contract_url\" t-value=\"'/mail/view?model=fleet.vehicle.log.contract&amp;res_id=%s' % object.id\"/>\n"
+"<table role=\"presentation\" width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#FFFFFF\" style=\"width: 100%; max-width: 600px; background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; border-collapse: separate; font-family: Arial, Helvetica, sans-serif; color: #1F2937;\">\n"
+"    <tr>\n"
+"        <td style=\"padding: 20px 28px; border-bottom: 3px solid #0B5CAD;\">\n"
+"            <table role=\"presentation\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse;\">\n"
+"                <tr>\n"
+"                    <td valign=\"middle\" style=\"font-size: 16px; font-weight: bold; color: #1F2937;\" t-out=\"company.name\"/>\n"
+"                    <td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
+"                        <img t-att-src=\"'/logo.png?company=%s' % company.id\" t-att-alt=\"company.name\" height=\"40\" style=\"height: 40px; max-width: 180px; border: 0; display: block;\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td style=\"padding: 28px 28px 8px 28px;\">\n"
+"            <span style=\"display: inline-block; padding: 4px 10px; background-color: #FFF4E5; border: 1px solid #F5C27A; border-radius: 12px; color: #8A4B00; font-size: 13px; font-weight: bold;\">Expires <t t-out=\"object.expiry_notice_when\"/></span>\n"
+"            <p style=\"margin: 20px 0 12px 0; font-size: 18px; font-weight: bold; color: #1F2937;\">\n"
+"                <t t-if=\"ctx.get('expiry_notice_first_name')\">Hello <t t-out=\"ctx.get('expiry_notice_first_name')\"/>,</t>\n"
+"                <t t-else=\"\">Hello,</t>\n"
+"            </p>\n"
+"            <p style=\"margin: 0 0 20px 0; font-size: 15px; line-height: 22px; color: #1F2937;\">\n"
+"                This is a reminder that contract <strong t-out=\"object.expiry_notice_contract_label\"/> for vehicle <strong t-out=\"object.expiry_notice_vehicle_label\"/><t t-if=\"object.vehicle_id.license_plate\"> (<t t-out=\"object.vehicle_id.license_plate\"/>)</t> expires on <strong t-out=\"format_date(object.expiration_date)\"/>, <t t-out=\"object.expiry_notice_when\"/>.\n"
+"            </p>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td style=\"padding: 0 28px;\">\n"
+"            <table role=\"presentation\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse; font-size: 14px; line-height: 20px;\">\n"
+"                <tr t-if=\"object.vehicle_id\">\n"
+"                    <td width=\"38%\" valign=\"top\" style=\"padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;\">Vehicle</td>\n"
+"                    <td valign=\"top\" style=\"padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937; font-weight: bold;\"><t t-out=\"object.expiry_notice_vehicle_label\"/><t t-if=\"object.vehicle_id.license_plate\"> (<t t-out=\"object.vehicle_id.license_plate\"/>)</t></td>\n"
+"                </tr>\n"
+"                <tr t-if=\"object.cost_subtype_id\">\n"
+"                    <td width=\"38%\" valign=\"top\" style=\"padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;\">Contract type</td>\n"
+"                    <td valign=\"top\" style=\"padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;\" t-out=\"object.cost_subtype_id.name\"/>\n"
+"                </tr>\n"
+"                <tr t-if=\"object.insurer_id\">\n"
+"                    <td width=\"38%\" valign=\"top\" style=\"padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;\">Vendor</td>\n"
+"                    <td valign=\"top\" style=\"padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;\" t-out=\"object.insurer_id.name\"/>\n"
+"                </tr>\n"
+"                <tr t-if=\"object.ins_ref\">\n"
+"                    <td width=\"38%\" valign=\"top\" style=\"padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;\">Reference</td>\n"
+"                    <td valign=\"top\" style=\"padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;\" t-out=\"object.ins_ref\"/>\n"
+"                </tr>\n"
+"                <tr t-if=\"object.expiration_date\">\n"
+"                    <td width=\"38%\" valign=\"top\" style=\"padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;\">Expiration date</td>\n"
+"                    <td valign=\"top\" style=\"padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937; font-weight: bold;\" t-out=\"format_date(object.expiration_date)\"/>\n"
+"                </tr>\n"
+"                <tr t-if=\"object.expiry_notice_cost_label\">\n"
+"                    <td width=\"38%\" valign=\"top\" style=\"padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; color: #6B7280;\">Cost</td>\n"
+"                    <td valign=\"top\" style=\"padding: 9px 0; border-top: 1px solid #E5E7EB; color: #1F2937;\" t-out=\"object.expiry_notice_cost_label\"/>\n"
+"                </tr>\n"
+"                <tr t-if=\"object.expiry_notice_responsible_names\">\n"
+"                    <td width=\"38%\" valign=\"top\" style=\"padding: 9px 12px 9px 0; border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; color: #6B7280;\">Responsibles</td>\n"
+"                    <td valign=\"top\" style=\"padding: 9px 0; border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; color: #1F2937;\" t-out=\"object.expiry_notice_responsible_names\"/>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td style=\"padding: 24px 28px 0 28px;\">\n"
+"            <table role=\"presentation\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#EEF4FB\" style=\"background-color: #EEF4FB; border-left: 4px solid #0B5CAD; border-collapse: collapse;\">\n"
+"                <tr>\n"
+"                    <td style=\"padding: 14px 16px; font-size: 14px; line-height: 21px; color: #1F2937;\">\n"
+"                        <strong style=\"color: #0B3D73;\">What to do</strong><br/>\n"
+"                        Check whether the contract should be renewed or closed before it expires, so the vehicle is not left without coverage or without the contracted service.\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"padding: 28px;\">\n"
+"            <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: separate;\">\n"
+"                <tr>\n"
+"                    <td align=\"center\" bgcolor=\"#0B5CAD\" style=\"background-color: #0B5CAD; border-radius: 6px;\">\n"
+"                        <a t-att-href=\"contract_url\" target=\"_blank\" style=\"display: inline-block; padding: 12px 28px; font-size: 15px; font-weight: bold; color: #FFFFFF; text-decoration: none; border-radius: 6px;\">View contract</a>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td style=\"padding: 16px 28px 24px 28px; border-top: 1px solid #E5E7EB; font-size: 12px; line-height: 18px; color: #6B7280;\">\n"
+"            You are receiving this notice because you are listed as a responsible for this contract. It is sent only once. If you have already handled it, you can ignore it.\n"
+"            <br/><br/>\n"
+"            <strong t-out=\"company.name\" style=\"color: #4B5563;\"/>\n"
+"            <t t-if=\"company.email\"> · <t t-out=\"company.email\"/></t>\n"
+"            <t t-if=\"company.website\"> · <t t-out=\"company.website\"/></t>\n"
+"        </td>\n"
+"    </tr>\n"
+"</table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__additional_responsible_ids
+msgid "Additional responsibles"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model,name:fleet_contract_multi_responsible.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_res_config_settings__fleet_contract_expiry_notice_days
+#: model_terms:ir.ui.view,arch_db:fleet_contract_multi_responsible.res_config_settings_view_form
+msgid "Contract expiry notice (days before)"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#. odoo-python
+#: code:addons/fleet_contract_multi_responsible/models/fleet_vehicle_log_contract.py:0
+msgid "Contract expiry notice email sent to:"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,help:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__expiry_notice_sent_on
+msgid ""
+"Date the expiry notice email was sent for the current expiration date. It is"
+" cleared automatically when the expiration date changes."
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__display_name
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model_terms:ir.ui.view,arch_db:fleet_contract_multi_responsible.res_config_settings_view_form
+msgid ""
+"Email every responsible of a running contract before it expires (sent once "
+"per expiration date)."
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__expiry_notice_sent_on
+msgid "Expiry notice sent on"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__expiry_notice_contract_label
+msgid "Expiry notice: contract"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__expiry_notice_cost_label
+msgid "Expiry notice: cost"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__expiry_notice_responsible_names
+msgid "Expiry notice: responsibles"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__expiry_notice_vehicle_label
+msgid "Expiry notice: vehicle"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__expiry_notice_when
+msgid "Expiry notice: when"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:mail.template,name:fleet_contract_multi_responsible.mail_template_contract_expiry_notice
+msgid "Fleet: contract expiry notice"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.actions.server,name:fleet_contract_multi_responsible.ir_cron_contract_expiry_notice_ir_actions_server
+msgid "Fleet: send contract expiry notice emails"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__id
+#: model:ir.model.fields,field_description:fleet_contract_multi_responsible.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,help:fleet_contract_multi_responsible.field_fleet_vehicle_log_contract__additional_responsible_ids
+msgid ""
+"Internal users who share responsibility for this contract with the main "
+"responsible. All of them receive the expiry notice email."
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model.fields,help:fleet_contract_multi_responsible.field_res_config_settings__fleet_contract_expiry_notice_days
+msgid ""
+"Number of days before the expiration date of a running contract from which "
+"its responsibles receive the expiry notice email."
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:mail.template,description:fleet_contract_multi_responsible.mail_template_contract_expiry_notice
+msgid ""
+"Sent to every responsible of a running vehicle contract before it expires"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#. odoo-python
+#: code:addons/fleet_contract_multi_responsible/models/res_config_settings.py:0
+msgid ""
+"The contract expiry notice must be between %(min)s and %(max)s days before "
+"the expiration date."
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:ir.model,name:fleet_contract_multi_responsible.model_fleet_vehicle_log_contract
+msgid "Vehicle Contract"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#: model:mail.template,subject:fleet_contract_multi_responsible.mail_template_contract_expiry_notice
+msgid ""
+"[Fleet] Contract {{ object.expiry_notice_contract_label }} for {{ "
+"object.expiry_notice_vehicle_label }} expires {{ object.expiry_notice_when "
+"}}"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#. odoo-python
+#: code:addons/fleet_contract_multi_responsible/models/fleet_vehicle_log_contract.py:0
+msgid "in %(days)s days"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#. odoo-python
+#: code:addons/fleet_contract_multi_responsible/models/fleet_vehicle_log_contract.py:0
+msgid "today"
+msgstr ""
+
+#. module: fleet_contract_multi_responsible
+#. odoo-python
+#: code:addons/fleet_contract_multi_responsible/models/fleet_vehicle_log_contract.py:0
+msgid "tomorrow"
+msgstr ""
